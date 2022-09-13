@@ -358,6 +358,26 @@ colormap(gca,'gray')
 
 
 
+%%%% He's figure
+figure
+
+%%%% C isotope
+subplot(1,2,1)
+%%%% plot proxy
+
+hold on
+%%%% plot model
+plot(state.time_myr,state.delta_mccb)
+
+%%%% temperature
+subplot(1,2,2)
+%%%% plot proxy
+
+hold on
+%%%% plot model
+plot(state.time_myr,state.SAT_equator)
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%   Cleanup workspace   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

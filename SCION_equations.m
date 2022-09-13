@@ -325,6 +325,10 @@ carbw_spatial = ( CWcarb_sum_past*contribution_past + CWcarb_sum_future*contribu
 
 %%%% global average surface temperature
 GAST = mean(mean( Tair_past .* pars.rel_contrib ))*contribution_past  +  mean(mean( Tair_future .* pars.rel_contrib ))*contribution_future  ;
+%%%% tropical surface temperature (24 S to 24 N gridcells)
+SAT_tropical = mean(mean( Tair_past(15:26,:) .* pars.rel_contrib(15:26,:)*0.67 ))*contribution_past  +  mean(mean( Tair_future(15:26,:) .* pars.rel_contrib(15:26,:)*0.67 ))*contribution_future  ;
+%%%% equatorial surface temperature (equal contribution from 2S and 2N lat bands)
+SAT_equator = mean(mean( Tair_past(20:21,:)))*contribution_past  +  mean(mean( Tair_future(20:21,:) ))*contribution_future  ;
 
 %%%% set assumed ice temperature
 Tcrit = -10 ;
@@ -377,7 +381,9 @@ ignit = min(max(48*mrO2 - 9.08 , 0) , 5 ) ;
 firef = pars.kfire/(pars.kfire - 1 + ignit) ;
 
 %%%%% Mass of terrestrial biosphere
-VEG = V_npp * firef ;
+% VEG = V_npp * firef ;
+VEG = 0.1 ;
+
 
 %%%%%% basalt and granite temp dependency - direct and runoff
 Tsurf = GAST + 273 ;
@@ -616,6 +622,8 @@ if sensanal == 0
     workingstate.time(stepnumber,1) = t;
     workingstate.temperature(stepnumber,1) = TEMP_gast ;
     workingstate.tempC(stepnumber,1) = TEMP_gast - 273 ;
+    workingstate.SAT_tropical(stepnumber,1) = SAT_tropical ;
+    workingstate.SAT_equator(stepnumber,1) = SAT_equator ;
     workingstate.P(stepnumber,1) = P ;
     workingstate.O(stepnumber,1) = O ;
     workingstate.A(stepnumber,1) = A ;
